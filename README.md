@@ -12,4 +12,6 @@ Start Frontend Server:
 ```
 cd frontend
 docker-compose up --build
+
+go to http://localhost:3000
 ```
