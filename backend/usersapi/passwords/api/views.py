@@ -17,17 +17,17 @@ class PasswordAPIView(APIView):
         if serializer.is_valid():
             username = serializer.data['username']
             user = self.get_object(username)
-            new_password = serializer.data['newPassword']
+            new_password = serializer.data['password']
             is_same_as_old = user.check_password(new_password)
             if is_same_as_old:
                 """
                 old password and new passwords should not be the same
                 """
-                return Response({"error": "old and new passwords should be different"},
+                return Response({"password": ["It should be different from your last password."]},
                                 status=status.HTTP_400_BAD_REQUEST)
             user.set_password(new_password)
             user.save()
-            return Response(serializer.data)
+            return Response({'success':True})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # def get(self, request):

@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+
+  frontend-react-redux-saga:
+    container_name: frontend-react-redux-saga
+    build: .
+    ports:
+      - '3000:3000'

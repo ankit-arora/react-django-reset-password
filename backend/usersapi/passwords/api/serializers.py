@@ -5,7 +5,7 @@ import re
 
 class PasswordSerializer(serializers.Serializer):
     username = serializers.CharField()
-    newPassword = serializers.CharField()
+    password = serializers.CharField()
 
     def create(self, validated_data):
         pass
@@ -19,21 +19,11 @@ class PasswordSerializer(serializers.Serializer):
 
     def validate(self, data):
         """ check that username and new password are different """
-        if data["username"] == data["newPassword"]:
+        if data["username"] == data["password"]:
             raise serializers.ValidationError("Username and new password should be different")
         return data
 
-    @staticmethod
-    def contains_special_character(value):
-
-        regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
-
-        if regex.search(value) is not None:
-            return True
-
-        return False
-
-    def validate_newPassword(self, value):
+    def validate_password(self, value):
         """
         check if new password meets the specs
         min 1 lowercase and 1 uppercase alphabet
@@ -43,22 +33,22 @@ class PasswordSerializer(serializers.Serializer):
         """
 
         if len(value) < 8 or len(value) > 16:
-            raise serializers.ValidationError("password should be between 8 and 16 characters long")
+            raise serializers.ValidationError("It should be between 8 and 16 characters long")
 
         if not any(x.isupper() for x in value):
-            raise serializers.ValidationError("password should have minimum one upper case alphabet")
+            raise serializers.ValidationError("It should have at least one upper case alphabet")
 
         if not any(x.islower() for x in value):
-            raise serializers.ValidationError("password should have minimum one lower case alphabet")
+            raise serializers.ValidationError("It should have at least one lower case alphabet")
 
         if not any(x.isdigit() for x in value):
-            raise serializers.ValidationError("password should have minimum one number")
+            raise serializers.ValidationError("It should have at least one number")
 
         valid_special_characters = {'@', '_', '!', '#', '$', '%', '^', '&', '*', '(', ')',
                                     '<', '>', '?', '/', '|', '{', '}', '~', ':'}
 
         if not any(x in valid_special_characters for x in value):
-            raise serializers.ValidationError("password should have minimum one special character")
+            raise serializers.ValidationError("It should have at least one special character")
 
         return value
 
