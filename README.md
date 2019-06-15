@@ -3,13 +3,13 @@
 Start Backend Server:
 
 ```
-cd  backend
+cd backend
 docker-compose up --build
 ```
 
 Start Frontend Server:
 
 ```
-cd  frontend
+cd frontend
 docker-compose up --build
 ```
