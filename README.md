@@ -1,4 +1,4 @@
-## Example App that uses React and Redux Saga with a Django Rest Framework backend
+## Example App that uses React and Redux Saga with a Django Rest Framework backend and Postgres
 
 Start Backend Server:
 
